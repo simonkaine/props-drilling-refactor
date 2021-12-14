@@ -9,22 +9,10 @@ function App() {
   // inital value should match the data type of end value
   const [user, setUser] = useState({})
 
-  useEffect(() => {
-    fetchUser()
-      .then((fetchedUser) => {
-        setUser(fetchedUser)
-      })
-      .catch((error) => {
-        throw new Error(`Error: ${error}`)
-      })
-  }, [])
-
   return (
-    <UserProvider>
-      <Layout user={user}>
-        <Home user={user} />
+      <Layout >
+        <Home  />
       </Layout>
-    </UserProvider>
   )
 }
 

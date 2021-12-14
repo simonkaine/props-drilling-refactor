@@ -1,23 +1,24 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
+import { fetchUser } from '../services/user'
 
 const userContext = createContext();
 
 const UserProvider = ({ children }) => {
     const [user, setUser] = useState({});
-    const [name, setName] = useState('');
-    const [likes, setLikes] = ([]);
-    const [motto, setMotto] = ('');
-    const [color, setColor] = ('');
-    const [header, setHeader] = ('');
+
+    useEffect(() => {
+        fetchUser()
+          .then((fetchedUser) => {
+            setUser(fetchedUser)
+          })
+          .catch((error) => {
+            throw new Error(`Error: ${error}`)
+          })
+      }, [])
 
     return (
         <userContext.Provider value={{ 
-            user, setUser,
-            name, setName,
-            likes, setLikes,
-            motto, setMotto,
-            color, setColor,
-            header, setHeader
+            user
         }}>
             {children}
         </userContext.Provider>
